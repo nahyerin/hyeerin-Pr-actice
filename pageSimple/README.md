@@ -18,7 +18,7 @@
 <br><br>
 
 ### :small_orange_diamond: 🥁기초자료 파악 및 구성
-![image](./image/pageSet.png)
+![image](.../image/pageSet.png)
   
 <br><br>
 
