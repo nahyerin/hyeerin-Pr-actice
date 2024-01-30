@@ -16,7 +16,7 @@
 |---|---|
 |*다중채팅(소켓)* &nbsp; | |
 |*벽돌깨기 게임* &nbsp; | |
-|*간단한 사이트구성* &nbsp; | |
+|*간단한 사이트구성* &nbsp; | https://github.com/nahyerin/hyeerinProjectSolo/tree/main/pageSimple |
 
 </div>
 
