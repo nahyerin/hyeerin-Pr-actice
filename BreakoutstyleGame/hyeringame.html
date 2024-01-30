@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>벽돌깨기 게임</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin: 0;
+      background-color: #d3d1d1;
+    }
+
+    #game-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #game-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 2px solid #333;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    #paddle {
+      position: absolute;
+      bottom: 10px;
+      width: 80px;
+      height: 10px;
+      background-color: #333;
+    }
+
+    #ball {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #f00;
+      border-radius: 50%;
+    }
+
+    .brick {
+      width: 30px;
+      height: 15px;
+      margin: 5px;
+      background-color: #009;
+      position: absolute;
+    }
+
+    #game-over {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #f00;
+    }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 18px;
+    }
+
+    h1 {
+      font-size: 50px;
+      margin: 0;
+      font-family: Silkscreen;
+    }
+
+    #banner-container {
+      display: flex;
+      justify-content: space-between;
+      width: 400px;
+      margin-top: 10px;
+    }
+
+    .banner-image {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 id="game-title">🎮 Hyerin's Breakout-style Game 🎮 </h1>
+  <div id="game-container">
+    <div id="paddle"></div>
+    <div id="ball"></div>
+    <div id="game-over">게임 종료</div>
+    <div id="score">점수 : 0</div>
+
+    <!-- 벽돌ㄷㅡㄹ..... -->
+    <!-- 1번줄 -->
+    <div class="brick" style="top: 50px; left: 10px;"></div>
+    <div class="brick" style="top: 50px; left: 50px;"></div>
+    <div class="brick" style="top: 50px; left: 90px;"></div>
+    <div class="brick" style="top: 50px; left: 130px;"></div>
+    <div class="brick" style="top: 50px; left: 170px;"></div>
+    <div class="brick" style="top: 50px; left: 210px;"></div>
+    <div class="brick" style="top: 50px; left: 250px;"></div>
+    <div class="brick" style="top: 50px; left: 290px;"></div>
+    <div class="brick" style="top: 50px; left: 330px;"></div>
+
+    <!-- 2번줄 -->
+    <div class="brick" style="top: 80px; left: 10px;"></div>
+    <div class="brick" style="top: 80px; left: 50px;"></div>
+    <div class="brick" style="top: 80px; left: 90px;"></div>
+    <div class="brick" style="top: 80px; left: 130px;"></div>
+    <div class="brick" style="top: 80px; left: 170px;"></div>
+    <div class="brick" style="top: 80px; left: 210px;"></div>
+    <div class="brick" style="top: 80px; left: 250px;"></div>
+    <div class="brick" style="top: 80px; left: 290px;"></div>
+    <div class="brick" style="top: 80px; left: 330px;"></div>
+
+    <!-- 3번줄 -->
+    <div class="brick" style="top: 110px; left: 10px;"></div>
+    <div class="brick" style="top: 110px; left: 50px;"></div>
+    <div class="brick" style="top: 110px; left: 90px;"></div>
+    <div class="brick" style="top: 110px; left: 130px;"></div>
+    <div class="brick" style="top: 110px; left: 170px;"></div>
+    <div class="brick" style="top: 110px; left: 210px;"></div>
+    <div class="brick" style="top: 110px; left: 250px;"></div>
+    <div class="brick" style="top: 110px; left: 290px;"></div>
+    <div class="brick" style="top: 110px; left: 330px;"></div>
+
+    <!-- 4번줄 -->
+    <div class="brick" style="top: 140px; left: 10px;"></div>
+    <div class="brick" style="top: 140px; left: 50px;"></div>
+    <div class="brick" style="top: 140px; left: 90px;"></div>
+    <div class="brick" style="top: 140px; left: 130px;"></div>
+    <div class="brick" style="top: 140px; left: 170px;"></div>
+    <div class="brick" style="top: 140px; left: 210px;"></div>
+    <div class="brick" style="top: 140px; left: 250px;"></div>
+    <div class="brick" style="top: 140px; left: 290px;"></div>
+    <div class="brick" style="top: 140px; left: 330px;"></div>
+  </div>
+
+  <!-- 배너 이미지 컨테이너 -->
+  <div id="banner-container">
+    <img class="banner-image" src="/Users/rini/Desktop/배너01.png" alt="">
+    <img class="banner-image" src="/Users/rini/Desktop/배너02.png" alt="">
+    <img class="banner-image" src="/Users/rini/Desktop/배너03.png" alt="">
+  </div>
+
+  <script>
+    // 배너 이미지 엘리먼트들 선택
+    const bannerImages = document.querySelectorAll('.banner-image');
+    let currentBannerIndex = 0;
+
+    // 해당 인덱스의 배너를 표시, 인덱스를 증가시킴
+    function showBanner(index) {
+      bannerImages.forEach((image, i) => {
+        image.style.display = i === index ? 'block' : 'none';
+      });
+    }
+
+    // 일정 간격으로 배너 변경
+    function gogo() {
+      showBanner(currentBannerIndex);
+      currentBannerIndex++;
+      if (currentBannerIndex >= bannerImages.length) {
+        currentBannerIndex = 0;
+      }
+    }
+
+    // 초기에 첫 번째 배너를 표시하고, 일정 간격으로 gogo 함수 반복호출
+    showBanner(0);
+    setInterval(gogo, 3000);
+
+    // 게임 엘리먼트들을 선택
+    const paddle = document.getElementById('paddle');
+    const ball = document.getElementById('ball');
+    const bricks = document.querySelectorAll('.brick');
+    const gameOver = document.getElementById('game-over');
+    const scoreDisplay = document.getElementById('score');
+
+    // 게임 변수 설정 (초기)
+    let ballX = 200;
+    let ballY = 300;
+    let ballSpeedX = 2;
+    let ballSpeedY = -2;
+    let paddleX = 160;
+    let score = 0;
+
+    // 게임 업데이트 함수
+    function updateGame() {
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      // 공의 경계
+      if (ballX < 0 || ballX > 380) {
+        ballSpeedX = -ballSpeedX;
+      }
+
+      if (ballY < 0) {
+        ballSpeedY = -ballSpeedY;
+      }
+
+      // 패들과의 충돌
+      if (
+        ballY + ball.offsetHeight > paddle.offsetTop &&
+        ballY < paddle.offsetTop + paddle.offsetHeight &&
+        ballX + ball.offsetWidth > paddleX &&
+        ballX < paddleX + paddle.offsetWidth
+      ) {
+        let collisionPoint = ballX - (paddleX + paddle.offsetWidth / 2);
+        collisionPoint = collisionPoint / (paddle.offsetWidth / 2);
+
+        let angle = (Math.PI / 4) * collisionPoint;
+        ballSpeedX = ballSpeedY * Math.tan(angle);
+        ballSpeedY = -ballSpeedY;
+
+        ballY = paddle.offsetTop - ball.offsetHeight - 0.1;
+      }
+
+      // 벽돌과의 충돌
+      bricks.forEach(brick => {
+        if (brick.style.display !== 'none' &&
+          ballY < brick.offsetTop + brick.offsetHeight &&
+          ballY + ball.offsetHeight > brick.offsetTop &&
+          ballX < brick.offsetLeft + brick.offsetWidth &&
+          ballX + ball.offsetWidth > brick.offsetLeft) {
+          ballSpeedY = -ballSpeedY;
+          brick.style.display = 'none';
+          increaseScore();
+        }
+      });
+
+      // 공이 아래로 떨어졌을 때 게임 종료
+      if (ballY > 400) {
+        endGame();
+      }
+
+      // 패들 및 공의 위치 업데이트
+      paddle.style.left = paddleX + 'px';
+      ball.style.left = ballX + 'px';
+      ball.style.top = ballY + 'px';
+    }
+
+    // gameover
+    function endGame() {
+      gameOver.style.display = 'block';
+    }
+
+    // 점수 증가
+    function increaseScore() {
+      score++;
+      scoreDisplay.textContent = '점수 : ' + score;
+    }
+
+    // 패들 이동
+    function movePaddle(event) {
+      if (event.key === 'ArrowLeft' && paddleX > 0) {
+        paddleX -= 10;
+      } else if (event.key === 'ArrowRight' && paddleX < 320) {
+        paddleX += 10;
+      }
+    }
+    // window 객체의 onkeydown 이벤트 핸들러에 movePaddle 함수 연결
+    window.onkeydown = movePaddle;
+
+    // 게임 업데이트 함수 일정 주기로 반복호출
+    setInterval(updateGame, 16);
+  </script>
+</body>
+
+</html>
