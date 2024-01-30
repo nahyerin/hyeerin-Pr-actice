@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jumal Gawje</title>
+  <style>
+     *{
+            margin: 0;
+            padding:0;
+        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #flexible-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #5e5e60;
+      color: rgb(255, 255, 255);
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: top 0.5s ease;
+      z-index: 1000;
+    }
+
+    #flexible-nav {
+      position: fixed;
+      top: 30px;
+      left: 0;
+      width: 100%;
+      background-color: #0f0e0e;
+      color: rgb(244, 240, 240);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: top 0.5s ease;
+      z-index: 1000;
+    }
+
+    #flexible-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    #flexible-nav li {
+      margin: 0 15px;
+    }
+
+    #flexible-nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #banner-container {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100px;
+      background-color: #030303;
+      color: rgb(251, 251, 247);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: left 0.5s ease;
+      z-index: 999;
+    }
+
+    #banner-container.show {
+      left: 0;
+    }
+
+    #scroll-content {
+      margin-top: 50px; 
+      padding: 20px;
+      display: flex;
+    }
+
+    #sidebar {
+      flex: 0 0 200px; 
+      background-color: #f4f4f4;
+      padding: 20px;
+      position: sticky;
+      top: 0; 
+    }
+
+    #clock-container {
+      margin-top: 20px;
+    }
+
+    .clock {
+      width: 150px;
+      height: 150px;
+      border: 5px solid #333;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto; 
+    }
+
+    .hour,
+    .minute,
+    .second {
+      position: absolute;
+      width: 50%;
+      height: 2px;
+      background: #333;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.3, 1);
+    }
+    .minute {
+      height: 1.5px;
+      background: #666;
+    }
+
+    .second {
+      height: 1px;
+      background: red;
+    }
+
+    .clock-number {
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+      transform-origin: 50% 100%;
+      transform: rotate(0deg);
+    }
+
+    #footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // 스크롤 시 헤더 및 내비게이션 동적 효과
+      var lastScrollTop = 0;
+
+      $(window).scroll(function () {
+        var scrollPosition = $(this).scrollTop();
+
+        if (scrollPosition > lastScrollTop) {
+          // 아래로 스크롤할 때
+          $("#flexible-header").css("top", "-60px");
+          $("#flexible-nav").css("top", "0");
+          $("#banner-container").removeClass("show");
+        } else {
+          // 위로 스크롤할 때
+          $("#flexible-header").css("top", "0");
+          $("#flexible-nav").css("top", "60px");
+          if (scrollPosition >= 200) {
+            $("#banner-container").addClass("show");
+          }
+        }
+
+        lastScrollTop = scrollPosition;
+      });
+
+      // 실시간 시계 업데이트
+      function updateClock() {
+        var now = new Date();
+        var hours = now.getHours() % 12 || 12;
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        var hourDeg = (360 / 12) * (hours + minutes / 60);
+        var minuteDeg = (360 / 60) * minutes;
+        var secondDeg = (360 / 60) * seconds;
+
+        $("#hour").css("transform", "rotate(" + hourDeg + "deg)");
+        $("#minute").css("transform", "rotate(" + minuteDeg + "deg)");
+        $("#second").css("transform", "rotate(" + secondDeg + "deg)");
+      }
+
+      // 50밀리초마다 초침 업데이트
+      function updateSecond() {
+        var now = new Date();
+        var milliseconds = now.getMilliseconds();
+        var secondDeg = (360 / 60) * (now.getSeconds() + milliseconds / 1000);
+
+        $("#second").css("transform", "rotate(" + secondDeg + "deg)");
+      }
+
+      // 1초마다 시계 업데이트 함수 호출
+      setInterval(updateClock, 1000);
+      // 50밀리초마다 초침 업데이트 함수 호출
+      setInterval(updateSecond, 50);
+      // 초기 호출로 초기 시계 상태 설정
+      updateClock();
+    });
+  </script>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <div id="flexible-header">
+    <div>로고</div>
+    <div>내비게이션</div>
+  </div>
+    <!-- 내비게이션 -->
+    <div id="flexible-nav">
+        <nav>
+          <ul>
+            <li><a href="#">메뉴1</a></li>
+            <li><a href="#">메뉴2</a></li>
+            <li><a href="#">메뉴3</a></li>
+            <li><a href="#">메뉴4</a></li>
+          </ul>
+        </nav>
+      </div>
+      <!-- 메인 콘텐츠 -->
+      <div id="scroll-content">
+        <!-- 사이드바 -->
+        <div id="sidebar">
+          <!-- 시계 컨테이너 -->
+          <div id="clock-container" class="clock">
+            <div class="hour" id="hour"></div>
+            <div class="minute" id="minute"></div>
+            <div class="second" id="second"></div>
+    
+            <!-- 시계 숫자 -->
+            <script>
+              for (let i = 1; i <= 12; i++) {
+                let angle = (i - 3) * 30; // 12시를 0도로 시작하도록 각도 계산
+                let radian = (angle * Math.PI) / 180; // 각도를 라디안으로 변환
+                let x = 75 + Math.cos(radian) * 60; // 중심으로부터의 x 좌표
+                let y = 75 + Math.sin(radian) * 60; // 중심으로부터의 y 좌표
+                document.write(
+                  `<div class="clock-number" style="left:${x}px; top:${y}px;">${i}</div>`
+                )
+              }
+            </script>
+          </div>
+        </div>
+    
+        <!-- 메인 콘텐츠 영역 -->
+        <div id="main-content">
+          <section>
+            <h2></h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+          <section>
+            <h2>섹션</h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+          <section>
+            <h2>섹션</h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+          <section>
+            <h2>섹션</h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+          <section>
+            <h2>섹션</h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+          <section>
+            <h2>섹션</h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+    
+          <section>
+            <h2>섹션</h2>
+            <p>Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+              Lorem ipsum dolor sit amet, 
+              consectetur adipisicing elit. Sequi, deserunt odit! 
+              Accusamus consequatur molestias sequi blanditiis est consequuntur 
+              repellendus animi fugiat eum obcaecati, laudantium ex 
+              repellat quos sint libero alias?
+            </p>
+          </section>
+        </div>
+      </div>
+    
+      <!-- 배너 컨테이너 -->
+      <div id="banner-container">
+        <div>왼쪽에서부터 보이는 내용</div>
+        <div>오른쪽에서부터 보이는 내용</div>
+      </div>
+    
+      <!-- 푸터 -->
+      <div id="footer">
+        <p>&copy; COMPANY INFO<br/>
+       
+          [교습과정 및 비용]</p>
+      </div>
+    </body>
+    </html>
+        
