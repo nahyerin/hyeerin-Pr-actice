@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .placeholder {
+            padding: 20px;
+            border-radius: 2em;
+            background-color: #ececec; 
+            width: 320px;
+            height: 380px;
+        }
+
+        .numpad {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .numpad > div {
+            position: relative;
+            float: left;
+            width: 60px;
+            height: 60px;
+            border-radius: .75em;
+            box-shadow: 1px 3px 15px -8px rgba(0, 0, 0, 0.5);
+            border: 3px solid rgba(200, 200, 200, 0.75); 
+            background-color: #f8f8f8; 
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .numpad > div:active {
+            box-shadow: none;
+        }
+
+        .numpad > div > span {
+            position: absolute;
+            display: block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .numpad > div.operator {
+            background-color: #d5c4e6;
+        }
+
+        .numpad > div.allclear {
+            background-color: #c3d8f0; 
+        }
+
+        .numpad > div.calc {
+            background-color: #c8e1ca; 
+        }
+
+        .numpad > div:nth-child(4n+1) {
+            clear: left;
+        }
+
+        .pane {
+            font-family: DotGothic16;
+            font-size: 2em;
+            width: 290px;
+            height: 2em;
+            padding: 0.25em;
+            margin-bottom: .5em;
+            box-sizing: border-box;
+            text-align: right;
+            border-radius: .5em;
+            letter-spacing: 3px;
+            background-color: #d1d9cf; 
+            box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="placeholder">
+        <div class="pane">0</div>
+        <div class="numpad">
+            <div><span>1</span></div>
+            <div><span>2</span></div>
+            <div><span>3</span></div>
+            <div class="operator"><span>+</span></div>
+            <div><span>4</span></div>
+            <div><span>5</span></div>
+            <div><span>6</span></div>
+            <div class="operator"><span>-</span></div>
+            <div><span>7</span></div>
+            <div><span>8</span></div>
+            <div><span>9</span></div>
+            <div class="operator"><span>*</span></div>
+            <div><span>0</span></div>
+            <div class="allclear"><span>AC</span></div>
+            <div class="operator"><span>=</span></div>
+            <div class="operator"><span>/</span></div>
+        </div>
+    </div>
+    <script src="./hyerinCalc.js"></script>
+</body>
+</html>
