@@ -1,5 +1,5 @@
-# hyeerinProjectSolo
-개인 프로젝트 저장소
+# hyeerinPractice
+혜린연습장소
 
 ## 정보
 
@@ -8,7 +8,7 @@
 
 <div align="left">
 
-## 💻 Projects
+## 💻 miniProjects
 
 #### 🙎‍♀️ Solo
 
