@@ -20,6 +20,8 @@
 |*간단한 사이트구성* &nbsp; | https://github.com/nahyerin/hyeerin-Pr-actice/tree/main/pageSimple |
 |*웹 계산기 구현* &nbsp; | https://github.com/nahyerin/hyeerin-Pr-actice/tree/main/calculator |
 |*테스트코드작성* &nbsp; | https://github.com/FastCampus-sttudy/oop-practice |
+|*JDBC프로그래밍* &nbsp; | https://github.com/FastCampus-sttudy/jdbc-practice|
+
 
 </div>
 
