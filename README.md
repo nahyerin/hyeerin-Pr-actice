@@ -21,6 +21,7 @@
 |*웹 계산기 구현* &nbsp; | https://github.com/nahyerin/hyeerin-Pr-actice/tree/main/calculator |
 |*테스트코드작성* &nbsp; | https://github.com/FastCampus-sttudy/oop-practice |
 |*JDBC프로그래밍* &nbsp; | https://github.com/FastCampus-sttudy/jdbc-practice|
+|*MVC 프레임워크 만들기* &nbsp; | https://github.com/FastCampus-sttudy/mvc-practice|
 
 
 </div>
