@@ -14,7 +14,7 @@ import multiChatFinal.FileTrans.FileSender;
 public class MultiChatFinalClient {
 
     static boolean chatmode = false; // 채팅 모드 여부 
-    static int chatState = 0; // 채팅 상태 
+    static int chatState = 0; // 채팅 상태 확인
 
     public static void main(String[] args) throws IOException {
 
