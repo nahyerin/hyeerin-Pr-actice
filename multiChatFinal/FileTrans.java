@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FileTrans {
-    // 파일 전송
     static class FileSender extends Thread {
         private String filePath;
 
